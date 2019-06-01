@@ -41,21 +41,21 @@ include 'inc/nav.php';
         <div class="container">
             <div class="row">
                 <div class="page_header text-center">
-                    <h2>Account</h2>
+                    <h2>Compte</h2>
                     <p><?php echo getenv('STORE_TAGLINE'); ?></p>
                 </div>
                 <div class="col-md-12">
                     <div class="row shop-login">
                         <div class="col-md-6">
                             <div class="box-content">
-                                <h3 class="heading text-center">I'm a Returning Customer</h3>
+                                <h3 class="heading text-center">Je suis un client</h3>
                                 <div class="clearfix space40"></div>
 
                                 <form class="logregform" method="post" action="loginprocess.php">
                                     <div class="row">
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <label>E-mail Address</label>
+                                                <label>Adresse E-mail</label>
                                                 <input type="email" name="email" value="" class="form-control">
                                             </div>
                                         </div>
@@ -64,8 +64,8 @@ include 'inc/nav.php';
                                     <div class="row">
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <a class="pull-right" href="#">(Lost Password?)</a>
-                                                <label>Password</label>
+                                                <a class="pull-right" href="#">(Mot de passe oublié?)</a>
+                                                <label>Mot de passe</label>
                                                 <input type="password" name="password" value="" class="form-control">
                                             </div>
                                         </div>
@@ -75,12 +75,12 @@ include 'inc/nav.php';
                                         <div class="col-md-6">
                                             <span class="remember-box checkbox">
                                                     <label for="rememberme">
-                                                    <input type="checkbox" id="rememberme" name="rememberme">Remember Me
+                                                    <input type="checkbox" id="rememberme" name="rememberme">se souvenir de moi
                                                 </label>
                                             </span>
                                         </div>
                                         <div class="col-md-6">
-                                            <button type="submit" class="button btn-md pull-right">Login</button>
+                                            <button type="submit" class="button btn-md pull-right">se connecter</button>
                                         </div>
                                     </div>
                                 </form>
@@ -88,14 +88,14 @@ include 'inc/nav.php';
                         </div>
                         <div class="col-md-6">
                             <div class="box-content">
-                                <h3 class="heading text-center">Register An Account</h3>
+                                <h3 class="heading text-center">Nouveau client?</h3>
                                 <div class="clearfix space40"></div>
 
                                 <form class="logregform" method="post" action="registerprocess.php">
                                     <div class="row">
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <label>E-mail Address</label>
+                                                <label>Adresse E-mail</label>
                                                 <input type="email" name="email" value="" class="form-control">
                                             </div>
                                         </div>
@@ -104,11 +104,11 @@ include 'inc/nav.php';
                                     <div class="row">
                                         <div class="form-group">
                                             <div class="col-md-6">
-                                                <label>Password</label>
+                                                <label>Mot de passe</label>
                                                 <input type="password" name="password" value="" class="form-control">
                                             </div>
                                             <div class="col-md-6">
-                                                <label>Re-enter Password</label>
+                                                <label>confirmer le mot de passe</label>
                                                 <input type="password" name="passwordagain" value="" class="form-control">
                                             </div>
                                         </div>
@@ -116,7 +116,7 @@ include 'inc/nav.php';
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="space20"></div>
-                                            <button type="submit" class="button btn-md pull-right">Register</button>
+                                            <button type="submit" class="button btn-md pull-right">Inscription</button>
                                         </div>
                                     </div>
                                 </form>

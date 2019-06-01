@@ -1,8 +1,6 @@
 
 <?php
-// Check to see if the cart is in the session data else default to null.
-// We do this because the $cart and $count variables are used extensively
-// below and will output warnings if we don't.
+
 if (isset($_SESSION['cart'])) {
     $cart = $_SESSION['cart'];
     $count = count($cart);
@@ -16,24 +14,24 @@ $cartTotal=0;
     <div id="mobnav-btn">Menu <i class="fa fa-bars"></i></div>
     <ul class="sf-menu">
         <li>
-            <a href="/electro/index.php">Home</a>
+            <a href="/electro/index.php">ACCEUIL</a>
         </li>
         <li>
-            <a href="#">Shop</a>
+            <a href="#">CATEGORIES</a>
             <div class="mobnav-subarrow"><i class="fa fa-plus"></i></div>
             <ul>
             </ul>
         </li>
         <li>
-            <a href="#">My Account</a>
+            <a href="#">MON COMPTE</a>
             <div class="mobnav-subarrow"><i class="fa fa-plus"></i></div>
             <ul>
-                <li><a href="/electro/my-account.php">My Orders</a></li>
-                <li><a href="/electro/edit-address.php">Update Address</a></li>
+                <li><a href="/electro/my-account.php">Mes Commandes</a></li>
+                <li><a href="/electro/edit-address.php">Modifier l'adresse</a></li>
                 <?php if (!isset($_SESSION['customer']) & empty($_SESSION['customer'])) : ?>
-                    <li><a href="/electro/login.php">Sign In</a></li>
+                    <li><a href="/electro/login.php">S'authentifier</a></li>
                 <?php else : ?>
-                    <li><a href="/electro/logout.php">Logout</a></li>
+                    <li><a href="/electro/logout.php">Deconnexion</a></li>
                 <?php endif; ?>
             </ul>
         </li>
@@ -54,18 +52,17 @@ $cartTotal=0;
                     } else if ($count === 1) {
                         echo 'You have <em class="highlight"> 1 item</em> in your shopping cart.';
                     } else {
-                        echo 'Your shopping cart is empty. It\'s pretty lonely over here, why not add something to it?';
+                        echo 'votre chariot est vide.pourquoi ne pas ajouter quelque produit?';
                     } ?>
                 </small>
                 <br>
                 <br>
 
-                    <div class="ci-total">Subtotal: <?php echo getenv('STORE_CURRENCY') . $cartTotal; ?></div>
+                    <div class="ci-total">total: <?php echo getenv('STORE_CURRENCY') . $cartTotal; ?></div>
                     <div class="cart-btn">
-                        <a href="<?php echo getenv('STORE_URL')."/complete-php7-ecom-website-0.5.0"; ?>/cart.php">View Cart</a>
-                        <a href="<?php echo getenv('STORE_URL')."/complete-php7-ecom-website-0.5.0"; ?>/checkout.php">Checkout</a>
+                        <a href="cart.php">Voir Chariot</a>
+                        <a href="checkout.php">Checkout</a>
                     </div>
-
             </div>
         </div>
         <div class="s-search">
@@ -73,7 +70,7 @@ $cartTotal=0;
             <div class="search-block">
                 <div class="ssc-inner">
                     <form>
-                        <input type="text" placeholder="Type Search text here...">
+                        <input type="text" placeholder="Entrer un texte...">
                         <button type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
