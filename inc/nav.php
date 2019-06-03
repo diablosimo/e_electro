@@ -1,13 +1,12 @@
-
 <?php
-
+require_once 'util/config.php';
 if (isset($_SESSION['cart'])) {
     $cart = $_SESSION['cart'];
     $count = count($cart);
 } else {
     $count = 0;
 }
-$cartTotal=0;
+$cartTotal = 0;
 
 ?>
 <div class="menu-wrap">
@@ -20,6 +19,14 @@ $cartTotal=0;
             <a href="#">CATEGORIES</a>
             <div class="mobnav-subarrow"><i class="fa fa-plus"></i></div>
             <ul>
+                <?php
+
+                $catres =loadMultiple("SELECT * FROM categorie");
+                foreach ($catres as $catr) {
+                    ?>
+                    <li><a href="/electro//index.php?id=<?php echo $catr['IDCATEGORIE']; ?>"><?php echo $catr['CATLIBELLE']; ?></a></li>
+                    <?php
+                } ?>
             </ul>
         </li>
         <li>
@@ -58,11 +65,11 @@ $cartTotal=0;
                 <br>
                 <br>
 
-                    <div class="ci-total">total: <?php echo getenv('STORE_CURRENCY') . $cartTotal; ?></div>
-                    <div class="cart-btn">
-                        <a href="cart.php">Voir Chariot</a>
-                        <a href="checkout.php">Checkout</a>
-                    </div>
+                <div class="ci-total">total: <?php $cartTotal; ?></div>
+                <div class="cart-btn">
+                    <a href="cart.php">Voir Chariot</a>
+                    <a href="checkout.php">Checkout</a>
+                </div>
             </div>
         </div>
         <div class="s-search">
