@@ -14,7 +14,6 @@
        <link rel="stylesheet" href="/electro/assets/js/superfish/css/superfish.css" media="screen">
       <link rel="stylesheet" href="/electro/assets/css/style.css">
       <link rel="stylesheet" href="/electro/assets/css/responsive.css">
-    <![endif]-->
 </head>
 <body class="multi-page">
 <div id="wrapper" class="wrapper">

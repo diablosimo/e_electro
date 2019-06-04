@@ -11,7 +11,7 @@ $uid = $_SESSION['customerid'];
 include 'inc/header.php';
 include 'inc/nav.php';
 
-require_once 'util/config.php';
+require_once 'util/config1.php';
 $query = "SELECT c.NOM, c.PRENOM, c.TEL, a.COMPL, a.AVENUE ,a.VILLE FROM client c JOIN compladresse a  WHERE c.COMPLADRESSE_IDCOMPLADRESSE=a.IDCOMPLADRESSE AND c.IDCLIENT=" . $uid;
 $r = loadOne($query);
 $nb = loadOne("SELECT COUNT(`COMPLADRESSE_IDCOMPLADRESSE`) FROM client WHERE IDCLIENT=" . $uid)['COUNT(`COMPLADRESSE_IDCOMPLADRESSE`)'];

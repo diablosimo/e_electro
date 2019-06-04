@@ -1,8 +1,6 @@
 <?php
-require_once 'util/config.php';
-
+require_once 'util/config1.php';
 session_start();
-
 ob_start();
 if (isset($_GET['id']) & !empty($_GET['id'])) {
     $id = $_GET['id'];

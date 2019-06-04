@@ -5,7 +5,7 @@
  * Date: 04/06/2019
  * Time: 13:13
  */
-require_once 'util/config.php';
+require_once 'util/config1.php';
 session_start();
 
 if (!isset($_SESSION['customer']) & empty($_SESSION['customer'])) {

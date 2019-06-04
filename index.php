@@ -2,7 +2,7 @@
 session_start();
 include 'inc/header.php';
 include 'inc/nav.php';
-include_once 'util/config.php';
+include_once 'util/config1.php';
 ?>
 
 <!-- SHOP CONTENT -->

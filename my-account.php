@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'util/config.php';
+require_once 'util/config1.php';
 if (!isset($_SESSION['customer']) & empty($_SESSION['customer'])) {
     header('location: login.php');
 }

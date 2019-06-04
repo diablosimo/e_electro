@@ -1,5 +1,5 @@
 <?php
-include_once 'util/config.php';
+include_once 'util/config1.php';
 
 if (isset($_POST) & !empty($_POST)) {
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);

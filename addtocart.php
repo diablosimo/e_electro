@@ -1,5 +1,5 @@
 <?php
-include_once 'util/config.php';
+include_once 'util/config1.php';
 if (isset($_GET) & !empty($_GET)) {
     $id = $_GET['id'];
     if (isset($_GET['quant']) & !empty($_GET['quant'])) {
