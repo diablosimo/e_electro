@@ -1,5 +1,5 @@
 <?php
-
+include_once 'util/config.php';
 if (isset($_GET) & !empty($_GET)) {
     $id = $_GET['id'];
     if (isset($_GET['quant']) & !empty($_GET['quant'])) {
@@ -7,8 +7,13 @@ if (isset($_GET) & !empty($_GET)) {
     } else {
         $quant = 1;
     }
-    $_SESSION['cart'][$id] = array("quantity" => $quant);
-    header('location: cart.php');
+    if($quant> loadOne("SELECT QTESTOCK FROM stockprdouit WHERE IDSTOCKPRODUIT=$id")['QTESTOCK']){
+        header('location: single.php?msg=-1&id='.$id);
+    }else{
+        $_SESSION['cart'][$id] = array("quantity" => $quant);
+        setcookie("cart[$id]","$quant",time()+3600*24*365);
+        header('location: cart.php');
+    }
 } else {
-    header('location: cart.php');
+     header('location: cart.php');
 }

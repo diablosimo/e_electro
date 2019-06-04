@@ -16,7 +16,9 @@ if (isset($_GET['id']) & !empty($_GET['id'])) {
     $seller=loadOne($query);
         $query="SELECT  r.* FROM review r WHERE r.PRODUIT_IDPRODUIT=".$stock['PRODUIT_IDPRODUIT'];
 
-} else {
+} else if(isset($_GET['msg'])) {
+    }
+else{
     header('location: index.php');
 }
 
@@ -50,10 +52,17 @@ include 'inc/nav.php';
                 <div class="col-md-10 col-md-offset-1">
                     <?php if (isset($fmsg)) {
                         ?>
-                    <div class="row">
-                        <div class="alert alert-danger" role="alert"><?php echo $fmsg; ?></div>
-                    </div>
-                    <?php
+                        <div class="row">
+                            <div class="alert alert-danger" role="alert"><?php echo $fmsg; ?></div>
+                        </div>
+                        <?php
+                    } ?>
+                    <?php if (isset($_GET['msg']) && $_GET['msg']==-1 ) {
+                        ?>
+                        <div class="row">
+                            <div class="alert alert-danger" role="alert">quantitié non disponible</div>
+                        </div>
+                        <?php
                     } ?>
                     <?php if (isset($smsg)) {
                         ?>
@@ -90,23 +99,23 @@ include 'inc/nav.php';
                             <div class="space10"></div>
                             <div class="p-price"><?php echo $stock['PRIXUNITAIRE']; ?> DH</div>
                             <?php
+                            if($properties!=null){
                             foreach ($properties as $property){
                                 ?>
                                 <p><?php echo $property['LIBELLE']." : ".$property['VALEURPROPRIETE']." : ".$property['TYPEPROPRIETE']; ?></p>
                             <?php
-                            } ?>
+                            }} ?>
 
                             <form method="get" action="addtocart.php">
                                 <div class="product-quantity">
                                     <span>Quantité:</span>
                                     <input type="hidden" name="id" value="<?php echo $stock['IDSTOCKPRODUIT']; ?>">
-                                    <input type="text" name="quant" placeholder="1" value="1">
+                                    <input type="text" name="quant" placeholder="1" required>
                                 </div>
                                 <div class="shop-btn-wrap">
                                     <input type="submit" class="button btn-small space20" value="Ajouter au panier">
                                 </div>
                             </form>
-                            <a href="addtowishlist.php?id=<?php echo $stock['IDSTOCKPRODUIT']; ?>" class="button btn-small">Ajouter a la liste des souhaits</a>
                             <div class="product-meta">
                                 <span>Categorie:
                                     <?php
@@ -152,6 +161,7 @@ include 'inc/nav.php';
                                         <?php
                                         $selrevsql = "select r.CONTENU,r.DATERATING,c.NOM,c.PRENOM FROM review r , client c WHERE r.USER_IDCLIENT=c.IDCLIENT AND r.PRODUIT_IDPRODUIT=".$stock['PRODUIT_IDPRODUIT'];
                                         $selrevres =loadMultiple($selrevsql);
+                                        if($selrevres!=null){
                                         foreach ($selrevres as $selrevr) {
                                             ?>
                                             <li>
@@ -166,7 +176,7 @@ include 'inc/nav.php';
                                                 </p>
                                             </li>
                                             <?php
-                                        } ?>
+                                        }} ?>
                                     </ul>
                                     <?php
                                     $chkrevsql = "SELECT count(*) as reviewcount FROM review r WHERE r.USER_IDCLIENT=$uid AND r.PRODUIT_IDPRODUIT=".$product['IDPRODUIT'];

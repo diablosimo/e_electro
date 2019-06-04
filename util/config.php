@@ -63,10 +63,13 @@ function loadOne($query) {
 function execRequest($query) {
     $db = connect();
     $x= $db->query($query);
-    echo $x;
     return $x;
 }
-
+function executeRequest($query) {
+    $db = connect();
+    $x= $db->exec($query);
+    return $x;
+}
 function generateMax($beanName, $atributeName) {
     $myMax = loadOne("SELECT MAX($atributeName) AS myMax FROM $beanName")['myMax'];
     if ($myMax == NULL) {

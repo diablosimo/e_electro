@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'inc/header.php';
 include 'inc/nav.php';
 include_once 'util/config.php';
@@ -29,8 +30,8 @@ include_once 'util/config.php';
                             foreach ($products as $r):
                                 $count++;
                                 if ($count % 4 == 0) {
-                                    echo '<div class="clearfix space35"></div>';
-                                }
+                                    echo '<div class=""></div>';
+                            }
                                 ?>
                                 <div class="shop-item">
                                     <div class="product">
@@ -43,14 +44,6 @@ include_once 'util/config.php';
                                                 </span>
                                             </div>
                                         </div>
-                                        <?php // TODO: Need to add functionality so people can rate items.  ?>
-                                        <div class="rating">
-                                            <span class="fa fa-star act"></span>
-                                            <span class="fa fa-star act"></span>
-                                            <span class="fa fa-star act"></span>
-                                            <span class="fa fa-star act"></span>
-                                            <span class="fa fa-star act"></span>
-                                        </div>
                                         <h2 class="product-title"><a href="single.php?id=<?php echo $r['IDPRODUIT']; ?>"><?php echo $r['LIBELLE']; ?></a></h2>
                                         <div class="product-price"><?php echo  $r['PRIXUNITAIRE']; ?><span></span></div>
                                     </div>
@@ -59,8 +52,6 @@ include_once 'util/config.php';
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <!-- Pagination -->
-                    <?php // TODO: Pagination doesn't work. Need to build in the functionality. ?>
                     <div class="page_nav">
                         <a href=""><i class="fa fa-angle-left"></i></a>
                         <a href="" class="active">1</a>
@@ -70,11 +61,9 @@ include_once 'util/config.php';
                         <a href="">9</a>
                         <a href=""><i class="fa fa-angle-right"></i></a>
                     </div>
-                    <!-- End Pagination -->
                 </div>
             </div>
         </div>
     </div>
 </section>
-
 <?php include 'inc/footer.php'; ?>

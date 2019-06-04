@@ -1,7 +1,7 @@
 <?php
 require_once 'util/config.php';
-if (isset($_SESSION['cart'])) {
-    $cart = $_SESSION['cart'];
+if (isset($_COOKIE['cart'])) {
+    $cart = $_COOKIE['cart'];
     $count = count($cart);
 } else {
     $count = 0;
@@ -24,7 +24,7 @@ $cartTotal = 0;
                 $catres =loadMultiple("SELECT * FROM categorie");
                 foreach ($catres as $catr) {
                     ?>
-                    <li><a href="/electro//index.php?id=<?php echo $catr['IDCATEGORIE']; ?>"><?php echo $catr['CATLIBELLE']; ?></a></li>
+                    <li><a href="/electro/index.php?id=<?php echo $catr['IDCATEGORIE']; ?>"><?php echo $catr['CATLIBELLE']; ?></a></li>
                     <?php
                 } ?>
             </ul>
@@ -55,15 +55,44 @@ $cartTotal = 0;
             <div class="cart-info">
                 <small><?php
                     if ($count !== 0 && $count !== 1) {
-                        echo 'You have <em class="highlight"> ' . $count . ' items</em> in your shopping cart.';
+                        echo 'Vous avez <em class="highlight">'.$count.' elements</em> dans votre panier.';
                     } else if ($count === 1) {
-                        echo 'You have <em class="highlight"> 1 item</em> in your shopping cart.';
+                        echo 'Vous avez <em class="highlight">1 element</em> dans votre panier.';
                     } else {
-                        echo 'votre chariot est vide.pourquoi ne pas ajouter quelque produit?';
+                        echo 'votre panier est vide.pourquoi ne pas ajouter quelque produit?';
                     } ?>
                 </small>
                 <br>
                 <br>
+
+
+                <?php
+                    if ($count != 0) {
+                        foreach ($cart as $key => $value) {
+                            $cartsql = "SELECT p.IMAGE,p.LIBELLE,s.PRIXUNITAIRE,s.IDSTOCKPRODUIT FROM produit p, stockprdouit s  WHERE p.IDPRODUIT=s.PRODUIT_IDPRODUIT AND IDSTOCKPRODUIT=$key";
+                            $navcartr= loadOne($cartsql);
+                ?>
+                    <div class="ci-item">
+                        <img src="uploads/<?php echo $navcartr['IMAGE']; ?>" width="70" alt=""/>
+                        <div class="ci-item-info">
+                            <h5>
+                                <a href="single.php?id=<?php echo $navcartr['IDSTOCKPRODUIT']; ?>"><?php echo substr($navcartr['LIBELLE'], 0, 20); ?></a>
+                            </h5>
+                            <p><?php echo $value . ' x ' .$navcartr['PRIXUNITAIRE']; ?></p>
+                            <div class="ci-edit">
+                                <a href="delcart.php?id=<?php echo $key; ?>" class="edit fa fa-trash"></a>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                    global $cartTotal;
+                    $cartTotal = $cartTotal + ($navcartr['PRIXUNITAIRE']*$value);
+                }}
+                ?>
+
+
+
+
 
                 <div class="ci-total">total: <?php $cartTotal; ?></div>
                 <div class="cart-btn">

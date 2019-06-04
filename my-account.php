@@ -38,6 +38,7 @@ if(isset($_SESSION['cart']))
 
                        <?php
                         $ordres =loadMultiple("SELECT * FROM commande WHERE IDCLIENT =".$uid);
+                        if ($ordres!=null){
                         foreach ($ordres As $ordr){
                             ?>
                             <tr>
@@ -57,14 +58,15 @@ if(isset($_SESSION['cart']))
                                     <?php echo $ordr['PRIXTOTAL'];?>
                                 </td>
                                 <td>
+
                                     <a href="view-order.php?id=<?php echo $ordr['IDCOMMANDE'];?>">Voir</a>
-                                    <?php if ($ordr['STATUT'] != 'cancelled') {?>
+                                    <?php if ($ordr['STATUT'] != 'annule') {?>
                                          <a href="cancel-order.php?id=<?php echo $ordr['IDCOMMANDE']; ?>">Annuler</a>
                                     <?php }?>
                                 </td>
                             </tr>
                             <?php
-                        }?>
+                        }}?>
                         </tbody>
                     </table>
 

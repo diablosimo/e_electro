@@ -1,17 +1,14 @@
 <?php
-
 include 'inc/header.php';
 include 'inc/nav.php';
 ?>
 
-<!-- SHOP CONTENT -->
 <section id="content">
     <div class="content-blog">
         <div class="container">
             <div class="row">
                 <div class="page_header text-center">
                     <h2>Compte</h2>
-                    <p><?php echo getenv('STORE_TAGLINE'); ?></p>
                 </div>
                 <div class="col-md-12">
                     <div class="row shop-login">
@@ -19,6 +16,15 @@ include 'inc/nav.php';
                             <div class="box-content">
                                 <h3 class="heading text-center">Je suis un client</h3>
                                 <div class="clearfix space40"></div>
+                                <?php if (isset($_GET['message'])) {
+                                    if ($_GET['message'] == 1) {
+                                        ?><div class="alert alert-danger" role="alert"><?php echo "Desolé, On n'a pas pu vous connecté avec cette combinaison d'email et mot de passe."; ?> </div>
+                                        <?php
+                                    } else if ($_GET['message'] == 3) {
+                                        ?><div class="alert alert-danger" role="alert"><?php echo "cet email, n'est pas enregistrer dans notre système."; ?></div>
+                                        <?php
+                                    }
+                                } ?>
 
                                 <form class="logregform" method="post" action="loginprocess.php">
                                     <div class="row">
@@ -59,7 +65,16 @@ include 'inc/nav.php';
                             <div class="box-content">
                                 <h3 class="heading text-center">Nouveau client?</h3>
                                 <div class="clearfix space40"></div>
-
+                                <?php if (isset($_GET['message'])) {
+                                    if ($_GET['message'] == 2) {
+                                        ?><div class="alert alert-danger" role="alert"> <?php echo "Echec d'inscription"; ?> </div>
+                                        <?php
+                                    }
+                                    if ($_GET['message'] == 4) {
+                                        ?><div class="alert alert-danger" role="alert"> <?php echo "email dejà utilisé"; ?> </div>
+                                        <?php
+                                    }
+                                } ?>
                                 <form class="logregform" method="post" action="registerprocess.php">
                                     <div class="row">
                                         <div class="form-group">

@@ -1,12 +1,13 @@
 <?php
-
 session_start();
+ob_start();
 if (!isset($_SESSION['customer']) && empty($_SESSION['customer'])) {
-    //header('location: login.php');
+    header('location: login.php');
 }else {
     $uid = $_SESSION['customerid'];
 }
 $uid = $_SESSION['customerid'];
+
 include 'inc/header.php';
 include 'inc/nav.php';
 
@@ -14,7 +15,6 @@ require_once 'util/config.php';
 $query = "SELECT c.NOM, c.PRENOM, c.TEL, a.COMPL, a.AVENUE ,a.VILLE FROM client c JOIN compladresse a  WHERE c.COMPLADRESSE_IDCOMPLADRESSE=a.IDCOMPLADRESSE AND c.IDCLIENT=".$uid;
 $r =loadOne($query);
 $nb=loadOne("SELECT COUNT(`COMPLADRESSE_IDCOMPLADRESSE`) FROM client WHERE IDCLIENT=".$uid)['COUNT(`COMPLADRESSE_IDCOMPLADRESSE`)'];
-
 
 if (isset($_POST) & !empty($_POST)) {
     $firstName = filter_var($_POST['fname'], FILTER_SANITIZE_STRING);
@@ -25,65 +25,60 @@ if (isset($_POST) & !empty($_POST)) {
     $avenue = filter_var($_POST['avenue'], FILTER_SANITIZE_STRING);
     $password=$_POST['passwd'];
     $cpassword=$_POST['cpasswd'];
-
-    echo "<script>console.log(".$nb.")</script>";
-
-
-
-
-
-
     $sqlStatement="";
     $sqlStatement1="";
-
+    $msg=0;
     if ($nb == 1) {
         $sqlStatement="UPDATE client c,compladresse a 
             SET  a.VILLE='$city',a.AVENUE='$avenue',a.COMPL='$address1' 
             WHERE c.COMPLADRESSE_IDCOMPLADRESSE=a.IDCOMPLADRESSE 
             AND a.IDCOMPLADRESSE IN (SELECT COMPLADRESSE_IDCOMPLADRESSE FROM client WHERE IDCLIENT =$uid) 
             AND c.IDCLIENT =$uid";
-
     } else {
         $newID=generateMax('COMPLADRESSE','IDCOMPLADRESSE');
         $sqlStatement = "INSERT INTO compladresse VALUES ($newID,'$avenue', '$city','$address1')";
-    }
+
     if($password!=null && $password!="" && $cpassword!=null && $cpassword!=""){
         if ($password==$cpassword)
-            $sqlStatement1 = "UPDATE client SET TEL='$phone', PRENOM='$firstName', NOM='$surname',PASSWORD=md5('$password') WHERE IDCLIENT=$uid";
+            $sqlStatement1 = "UPDATE client SET TEL='$phone', PRENOM='$firstName', NOM='$surname',PASSWORD=md5('$password'),COMPLADRESSE_IDCOMPLADRESSE=$newID WHERE IDCLIENT=$uid";
         else{
-            header("location: edit-address.php?message=warning");
-            $sqlStatement1="";
+            $sqlStatement1="UPDATE client SET TEL='$phone', PRENOM='$firstName', NOM='$surname',COMPLADRESSE_IDCOMPLADRESSE=$newID WHERE IDCLIENT=$uid";
+            $msg=1;
         }
     }else{
-        $sqlStatement1 = "UPDATE client SET TEL='$phone', PRENOM='$firstName', NOM='$surname' WHERE IDCLIENT=$uid";
+        $sqlStatement1 = "UPDATE client SET TEL='$phone', PRENOM='$firstName', NOM='$surname',COMPLADRESSE_IDCOMPLADRESSE=$newID WHERE IDCLIENT=$uid";
         //  global $sqlStatement1;
         //  $sqlStatement1="UPDATE compladresse SET VILLE='$city',AVENUE='$avenue',COMPL='$address1' WHERE IDCOMPLADRESSE IN (SELECT COMPLADRESSE_IDCOMPLADRESSE FROM client WHERE IDCLIENT =.$uid)";
+    }
     }
 
     echo "hhhhhhhhhhhhhhhhhhhhhhhhhhhhh:    ".$sqlStatement;
     echo "\n";
     echo "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa     ".$sqlStatement1;
+
     $queryResult = connect()->query($sqlStatement);
+    if($msg==1){
+        header("location: edit-address.php?message=warning");
+
+    }
     $queryResult1 = connect()->query($sqlStatement1);
 
     // Check that all the required details have been completed in the form.
     if (!empty($firstName) && !empty($surname) && !empty($address1) && !empty($city) && !empty($phone)) {
         // Update or Insert the Address details by saving the data to MySQL.
         if ($queryResult == TRUE and $queryResult1==TRUE) {
-            echo "<script>alert('\"Félicitations, on a réussi à modifié vos données.')</script>";
-            //header("location: edit-address.php?message=success");
+           // echo "<script>alert('\"Félicitations, on a réussi à modifié vos données.')</script>";
+            header("location: edit-address.php?message=success");
         } else {
-            //header("location: edit-address.php?message=error");
+            header("location: edit-address.php?message=error");
         }
     } else {
-        echo "<script>alert('des erreurs ont été detectés lors de la modification,veuillez remplir tous les champs ci-dessous et essayer une autre fois')</script>";
-        //header("location: edit-address.php?message=warning");
+      // echo "<script>alert('des erreurs ont été detectés lors de la modification,veuillez remplir tous les champs ci-dessous et essayer une autre fois')</script>";
+        header("location: edit-address.php?message=warning");
     }
 }
+ob_flush();
 ?>
-
-
-    <!-- SHOP CONTENT -->
     <section id="content">
         <div class="content-blog">
             <div class="page_header text-center">
@@ -91,6 +86,34 @@ if (isset($_POST) & !empty($_POST)) {
             </div>
             <form method="post" action="edit-address.php">
                 <div class="container">
+                    <?php if (isset($_GET['message'])) : ?>
+                        <div class="row">
+                            <?php if ($_GET['message'] == 'success') : ?>
+                                <div class="col-sm-12">
+                                    <h3 class="uppercase text-center">Info</h3>
+                                    <br>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <?php echo "félicitations, on a réussi à modifier vos informations."; ?>
+                                    </div>
+                                </div>
+                            <?php elseif ($_GET['message'] == 'error') : ?>
+                                <div class="col-sm-12">
+                                    <h3 class="uppercase text-center">erreur</h3>
+                                    <br>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <?php echo "erreur lors de la modification"; ?>
+                                    </div>
+                                </div>
+                            <?php elseif ($_GET['message'] == 'warning') : ?>
+                                <div class="col-sm-12">
+                                    <br>
+                                    <div class="alert alert-warning text-center" role="alert">
+                                        <?php echo "veuillez remplir les informations."; ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="billing-details">
