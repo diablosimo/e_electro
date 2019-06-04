@@ -8,7 +8,6 @@ include  'inc/header.php';
 include  'inc/nav.php';
 
 $uid = $_SESSION['customerid'];
-$cart = $_COOKIE['cart'];
 
 if (isset($_GET['id']) & !empty($_GET['id'])) {
     $oid = $_GET['id'];

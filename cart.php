@@ -65,7 +65,7 @@ $total=0;
                                 }
                             ?>
                             <tr>
-                                <form method="post" action="checkout.php">
+                                <form method="get" action="checkout.php">
                                 <td colspan="6" class="actions">
                                     <div class="col-md-6">
                                         <div class="coupon">

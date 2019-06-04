@@ -14,6 +14,7 @@ if (isset($_POST) & !empty($_POST)) {
             session_start();
             $_SESSION['customer'] = $email;
             $_SESSION['customerid'] = $r['IDCLIENT'];
+            $_SESSION['status']="Active";
             header("location: my-account.php");
         } else {
             header("location: login.php?message=1");

@@ -45,7 +45,7 @@ include_once 'util/config.php';
                                             </div>
                                         </div>
                                         <h2 class="product-title"><a href="single.php?id=<?php echo $r['IDPRODUIT']; ?>"><?php echo $r['LIBELLE']; ?></a></h2>
-                                        <div class="product-price"><?php echo  $r['PRIXUNITAIRE']; ?><span></span></div>
+                                        <div class="product-price"><?php echo  $r['PRIXUNITAIRE']; ?> DH<span></span></div>
                                     </div>
                                 </div>
                             <?php endforeach;?>

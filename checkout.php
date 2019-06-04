@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 if (!isset($_SESSION['customer']) & empty($_SESSION['customer'])) {
     header('location: login.php');
 }
@@ -8,6 +9,7 @@ include 'inc/header.php';
 include  'inc/nav.php';
 
 $uid = $_SESSION['customerid'];
+if(isset($_COOKIE['cart']))
 $cart = $_COOKIE['cart'];
 $coupon="";
 $price=0;
@@ -28,13 +30,13 @@ if (isset($cart)){
         $orderTotal = $orderTotal + ($order['PRIXUNITAIRE']*$value);
         echo "<script>console.log('1')</script>";
     }
-    if(isset($_POST) & !empty($_POST)){
+    if(isset($_GET) & !empty($_GET)){
         global $coupon;
-        $coupon=filter_var($_POST['coupon'], FILTER_SANITIZE_STRING);
+        $coupon=$_GET['coupon'];
         if(!empty($coupon)){
+            $couponsql="SELECT * FROM `reductioncoupon` WHERE `UTILISE`=0 AND `REFERENCE`='$coupon'";
             echo "<script>console.log({$coupon})</script>";
-            $couponsql="SELECT * FROM reductioncoupon where UTILISE=0 and REFERENCE=$coupon";
-            $cpn=loadOne($coupon);
+            $cpn=loadOne($couponsql);
             if($cpn!=null){
                 global $price;
                 $price=$cpn['MONTANTREDUCTION'];
@@ -119,7 +121,7 @@ if (isset($_POST) & !empty($_POST)) {
         }
     }
 }
-
+ob_flush();
 ?>
 <section id="content">
     <div class="content-blog">
@@ -253,7 +255,7 @@ if (isset($_POST) & !empty($_POST)) {
                     <div class="row">
 
                         <div class="col-md-4">
-                            <input name="payment" id="radio1" class="css-checkbox" type="radio" value="espece"><span>Espece à la livraison</span>
+                            <input name="payment" id="radio1" class="css-checkbox" type="radio" value="espece" checked ><span>Espece à la livraison</span>
                             <div class="space20"></div>
                         </div>
                         <div class="col-md-4">
@@ -270,7 +272,7 @@ if (isset($_POST) & !empty($_POST)) {
                     </div>
                     <div class="space30"></div>
 
-                    <input name="agree" id="checkboxG2" class="css-checkbox" type="checkbox" value="true"><span>j'ai lu et accepter les termes<a href="#">terms &amp; conditions</a></span>
+                    <input name="agree" id="checkboxG2" class="css-checkbox" type="checkbox" value="true" required><span>j'ai lu et accepter les termes<a href="#">terms &amp; conditions</a></span>
 
                     <div class="space30"></div>
                     <input type="submit" class="button btn-lg" value="Payer maintenant">

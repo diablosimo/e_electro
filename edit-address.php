@@ -1,7 +1,7 @@
 <?php
 session_start();
 ob_start();
-if (!isset($_SESSION['customer']) && empty($_SESSION['customer'])) {
+if (!isset($_SESSION['customer']) & empty($_SESSION['customer'])) {
     header('location: login.php');
 }else {
     $uid = $_SESSION['customerid'];
