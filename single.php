@@ -29,7 +29,7 @@ if (isset($_POST) & !empty($_POST)) {
     $review = filter_var($_POST['review'], FILTER_SANITIZE_STRING);
     $idProd=$product['IDPRODUIT'];
 
-    $revsql = "INSERT INTO review(CONTENU,DATERATING,PRODUIT_IDPRODUIT,USER_IDCLIENT) VALUE ('',current_date,$idProd,$uid)";
+    $revsql = "INSERT INTO review(CONTENU,DATERATING,PRODUIT_IDPRODUIT,USER_IDCLIENT) VALUE ('$review',current_date,$idProd,$uid)";
     $revres=execRequest($revsql);
     if ($revres) {
         $smsg = "Review enregistré";
@@ -133,13 +133,13 @@ include 'inc/nav.php';
                             <div class="align-center mb-40 mb-xs-30">
                                 <ul class="nav nav-tabs tpl-minimal-tabs animate">
                                     <li class="active col-md-6">
-                                        <a aria-expanded="true" href="#mini-one" data-toggle="tab">Overview</a>
+                                        <a aria-expanded="true" href="#mini-one" data-toggle="tab">Description</a>
                                     </li>
                                     <!-- <li class="col-md-4">
                                         <a aria-expanded="false" href="#mini-two" data-toggle="tab">Product Info</a>
                                     </li> -->
                                     <li class="col-md-6">
-                                        <a aria-expanded="false" href="#mini-three" data-toggle="tab">Reviews</a>
+                                        <a aria-expanded="false" href="#mini-three" data-toggle="tab">Apreciations</a>
                                     </li>
                                 </ul>
                             </div>

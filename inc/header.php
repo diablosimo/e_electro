@@ -10,32 +10,15 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/electro/assets/images/favicon.png">
     <link rel="stylesheet" href="/electro/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="/electro/assets/js/isotope/isotope.css">
-    <link rel="stylesheet" href="/electro/assets/js/flexslider/flexslider.css">
-    <link rel="stylesheet" href="/electro/assets/js/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="/electro/assets/js/owl-carousel/owl.theme.css">
-    <link rel="stylesheet" href="/electro/assets/js/owl-carousel/owl.transitions.css">
-    <link rel="stylesheet" href="/electro/assets/js/superfish/css/megafish.css" media="screen">
-    <link rel="stylesheet" href="/electro/assets/js/superfish/css/superfish.css" media="screen">
-    <link rel="stylesheet" href="/electro/assets/js/pikaday/pikaday.css">
-    <link rel="stylesheet" href="/electro/assets/css/settings-panel.css">
-    <link rel="stylesheet" href="/electro/assets/css/style.css">
-    <link rel="stylesheet" href="/electro/assets/css/light.css">
-    <link rel="stylesheet" href="/electro/assets/css/responsive.css">
-    <!-- JS Font Script -->
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+       <link rel="stylesheet" href="/electro/assets/js/superfish/css/megafish.css" media="screen">
+       <link rel="stylesheet" href="/electro/assets/js/superfish/css/superfish.css" media="screen">
+      <link rel="stylesheet" href="/electro/assets/css/style.css">
+      <link rel="stylesheet" href="/electro/assets/css/responsive.css">
     <![endif]-->
-    <!-- Modernizer -->
-    <script src="/electro/assets/js/modernizr.custom.js"></script>
 </head>
 <body class="multi-page">
 <div id="wrapper" class="wrapper">
     <div class="container-white col-sm-10 col-sm-offset-1">
-        <!-- HEADER -->
         <header id="header2">
             <div class="container">
                 <div class="row">
